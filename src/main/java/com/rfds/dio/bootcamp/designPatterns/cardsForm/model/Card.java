@@ -1,18 +1,16 @@
 package com.rfds.dio.bootcamp.designPatterns.cardsForm.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String imageURL;
+    private String animalImageURL;
     private String quote;
-    private String personName;
+    @OneToOne
+    private Person cardOwner;
 
     public Long getId() {
         return id;
@@ -22,12 +20,12 @@ public class Card {
         this.id = id;
     }
 
-    public String getImageURL() {
-        return imageURL;
+    public String getAnimalImageURL() {
+        return animalImageURL;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
+    public void setAnimalImageURL(String animalImageURL) {
+        this.animalImageURL = animalImageURL;
     }
 
     public String getQuote() {
@@ -38,11 +36,12 @@ public class Card {
         this.quote = quote;
     }
 
-    public String getPersonName() {
-        return personName;
+    public Person getCardOwner() {
+        return cardOwner;
     }
 
-    public void setPersonName(String personName) {
-        this.personName = personName;
+    public void setCardOwner(Person cardOwner) {
+        this.cardOwner = cardOwner;
     }
+
 }
