@@ -14,6 +14,10 @@ public class CardService {
     private CardRepository cardRepository;
     @Autowired
     private DogImageService dogImageService;
+    @Autowired
+    private DuckImageService duckImageService;
+    @Autowired
+    private FoxImageService foxImageService;
 
     public void insert(Card card){
         cardRepository.save(card);
@@ -24,10 +28,11 @@ public class CardService {
     }
 
     public Card createCardFor(Person person) {
+        // TODO buscar alternativa usando o próprio spring para selecionar a interface correta
         CardImageService cardImageService = switch (person.getFavoriteAnimal()){
             case AvailableAnimals.DOG -> dogImageService;
-            case DUCK -> null;
-            case FOX -> null;
+            case DUCK -> duckImageService;
+            case FOX -> foxImageService;
         };
 
         ImageUrlDTO imageUrlDTO = cardImageService.getImageURL();
@@ -36,7 +41,7 @@ public class CardService {
         Card cardForPerson = new Card();
         cardForPerson.setCardOwner(person);
         cardForPerson.setAnimalImageURL(url);
-        cardForPerson.setQuote("batata");
+        cardForPerson.setQuote("Uma frase bonita");
 
         return cardForPerson;
     }
