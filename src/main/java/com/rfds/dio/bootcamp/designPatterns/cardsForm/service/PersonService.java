@@ -5,6 +5,8 @@ import com.rfds.dio.bootcamp.designPatterns.cardsForm.repository.PersonRepositor
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PersonService {
 
@@ -15,7 +17,15 @@ public class PersonService {
         personRepository.save(person);
     }
 
-    public Iterable<Person> buscarTodos() {
+    public Iterable<Person> findAll() {
         return personRepository.findAll();
+    }
+
+    public boolean existsById(Long personId) {
+        return personRepository.existsById(personId);
+    }
+
+    public Optional<Person> findById(Long personId) {
+        return personRepository.findById(personId);
     }
 }

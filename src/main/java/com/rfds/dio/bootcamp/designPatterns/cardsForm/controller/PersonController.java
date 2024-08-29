@@ -16,7 +16,7 @@ public class PersonController {
     private PersonService personService;
 
     @PostMapping
-    public ResponseEntity<Person> inserir(@Valid @RequestBody Person person, BindingResult result) {
+    public ResponseEntity<Person> insert(@Valid @RequestBody Person person, BindingResult result) {
         if (result.hasErrors()) {
             // TODO melhorar mensagem de erro / retorno
             return ResponseEntity.badRequest().body(person);
@@ -26,8 +26,8 @@ public class PersonController {
     }
 
     @GetMapping
-    public ResponseEntity<Iterable<Person>> buscarTodos() {
-        return ResponseEntity.ok(personService.buscarTodos());
+    public ResponseEntity<Iterable<Person>> findAll() {
+        return ResponseEntity.ok(personService.findAll());
     }
 
 }
