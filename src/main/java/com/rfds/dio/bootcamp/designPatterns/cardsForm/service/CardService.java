@@ -5,6 +5,7 @@ import com.rfds.dio.bootcamp.designPatterns.cardsForm.model.Card;
 import com.rfds.dio.bootcamp.designPatterns.cardsForm.model.Person;
 import com.rfds.dio.bootcamp.designPatterns.cardsForm.model.dto.ImageUrlDTO;
 import com.rfds.dio.bootcamp.designPatterns.cardsForm.repository.CardRepository;
+import com.rfds.dio.bootcamp.designPatterns.cardsForm.utils.CardImageServiceFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +14,7 @@ public class CardService {
     @Autowired
     private CardRepository cardRepository;
     @Autowired
-    private DogImageService dogImageService;
-    @Autowired
-    private DuckImageService duckImageService;
-    @Autowired
-    private FoxImageService foxImageService;
+    private CardImageServiceFactory cardImageServiceFactory;
 
     public void insert(Card card){
         cardRepository.save(card);
@@ -29,11 +26,8 @@ public class CardService {
 
     public Card createCardFor(Person person) {
         // TODO buscar alternativa usando o próprio spring para selecionar a interface correta
-        CardImageService cardImageService = switch (person.getFavoriteAnimal()){
-            case AvailableAnimals.DOG -> dogImageService;
-            case DUCK -> duckImageService;
-            case FOX -> foxImageService;
-        };
+
+        CardImageService cardImageService = cardImageServiceFactory.getImageServiceByFavoriteAnimal(person.getFavoriteAnimal());
 
         ImageUrlDTO imageUrlDTO = cardImageService.getImageURL();
         String url = imageUrlDTO.getUrl();

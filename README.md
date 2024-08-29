@@ -12,9 +12,11 @@ Um card é pedido baseado no id de person, previamente cadastrado. Se um card fo
 **Singleton** em injeções Autowired do spring  
 **Iterator** através da interface Iterable do java, presente nos controllers
 **Strategy** em CardService, ao usar getImageUrl, de interface genérica que chama diferentes endpoints dependendo do animal favorito de person
+**Factory** para seleção correta do FeignClient - as opções do spring não ajudariam nesse contexto pois a seleção de beans é feita em tempo de execução usando o valor de uma variável como base   
+
 
 ### TODOS conhecidos
 - Possibilidade de inclusão de mais de um card por person
 - Atualização de person
-- Quote está hardcoded "Uma frase bonita", deveria bater em outra API com frases motivacionais  
-- Forma de seleção de interfaces usando o próprio spring para obter o bean correto, ao invés de usar um switch case no valor armazenado em person
+- Quote está hardcoded "Uma frase bonita", deveria bater em outra API com frases motivacionais
+- Escolher um pacote melhor para factory - hoje está em utils
